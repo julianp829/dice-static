@@ -1,152 +1,179 @@
-<!doctype html>
+<!DOCTYPE html> 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Roller</title>
-	<style>
-		#urlInput {
-            width: 500px; 
-            padding: 10px;
-            font-size: 14px;
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+
+    <style>
+        .container {
+            width: 70%;
+            margin: auto;
+            text-align: center;
         }
-        #favoritePlacesJSON, #batmanJSON {
-            padding: 20px;
-            background-color: lightgray;
+
+        .dice {
+            text-align: center;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        body {
+            background-color: #042f4b;
+            margin: 0;
+        }
+
+        h1 {
+            margin: 30px;
+            font-family: "Lobster", cursive;
+            text-shadow: 5px 0 #232931;
+            font-size: 4.5rem;
+            color: #4ecca3;
+            text-align: center;
+        }
+
+        p {
+            font-size: 2rem;
+            color: #4ecca3;
+            font-family: "Indie Flower", cursive;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .bottom {
+            padding-top: 30px;
+        }
+
+        .butn {
+            background: #4ecca3;
+            font-family: "Indie Flower", cursive;
+            border-radius: 7px;
+            color: #ffff;
+            font-size: 30px;
+            padding: 16px 25px 16px 25px;
+            text-decoration: none;
+        }
+
+        .butn:hover {
+            background: #232931;
+            text-decoration: none;
+        }
+
+        /* Info-bar styles */
+        .info-bar {
             margin-top: 20px;
+            font-family: "Indie Flower", cursive;
+            font-size: 1.2rem;
+            color: #ffffff;
+            background-color: red; /* Background set to red */
+            padding: 10px;
+            border-radius: 7px;
+            display: inline-block;
         }
-		#testingDiv {
-            display: none;
+
+        /* Main Node.js tag in the upper right corner */
+        .main-node-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f39c12;
+            color: #ffffff;
+            font-family: "Indie Flower", cursive;
+            font-size: 1.5rem;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: none; /* Hidden by default, will be shown via JS */
         }
     </style>
 </head>
+
 <body>
-	<h1>Roller</h1>
-	<p>This is an HTML, CSS, and JavaScript MERNa web client. To test your MERNa server, enter your 
-	MERNa sever URL below and press test connection button.</p>
+    <!-- Main Node.js Tag (Initially hidden) -->
+    <div id="main-node-tag" class="main-node-tag">Main Node.js</div>
 
-	<label for="urlInput">MERNa Server URL:</label><br />
-	<input type="text" id="urlInput" placeholder="Enter the URL of your remote MERNa server here..."><br /><br />
+    <div class="container">
+        <h1>Let's Play</h1>
 
-	<button onclick="testMERNaServerConnection()">Test MERNa Server Connection</button>
-	<div id="ping"></div><br /><br />
+        <div class="dice">
+            <p class="Player1">Player 1</p>
+            <img class="img1" src="dice6.png">
+        </div>
 
-	<script>
-		async function testMERNaServerConnection() {
-			const pingField = document.getElementById("ping");
-			pingField.innerHTML = "";
-			var div = document.getElementById('testingDiv');
-			div.style.display = 'none';
+        <div class="dice">
+            <p class="Player2">Player 2</p>
+            <img class="img2" src="dice6.png">
+        </div>
+    </div>
 
-			const url = document.getElementById("urlInput").value + "/api/ping";
-			const response = await fetch(url);
-			const pingResponse = await response.text();
+    <div class="container bottom">
+        <button type="button" class="butn" onClick="rollTheDice()">
+            Roll the Dice
+        </button>
+    </div>
+    <div class="container bottom">
+        <button type="button" class="butn" onClick="editNames()">
+            Edit Names
+        </button>
+    </div>
 
-			if (pingResponse === 'ping response') {
-				pingField.innerHTML = "Success!";
-				var div = document.getElementById('testingDiv');
-				div.style.display = 'block';
-			} 
-		}
-	</script>
+    <!-- Environment Identifier and Version Number -->
+    <div class="container bottom">
+        <div class="info-bar" id="env-info">
+            <!-- These values will be set via JavaScript -->
+        </div>
+    </div>
 
-	<div id="testingDiv">
-		<button type="button" onclick="fetchAbout()">Fetch About</button>
-		<div id="fetch-about-result"></div>
-		<br><br>
+    <script>
+        // Secret Configuration
+        var secret = "showMainNodeTag";  // Simulated secret, could be retrieved from a secure location
 
-		<button type="button" onclick="fetch2Plus2()">Fetch 2plus2</button>
-		<div id="fetch-2plus2-result"></div>
-		<br><br>
+        // Environment and Version Variables
+        var environment = "Static Main";
+        var version = "2";
 
-		Add two integers on the Node.js server.<br />
-		<select onchange="addTwoIntegers()" id="x-value">
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>100</option>
-		</select> +
+        // Set the environment and version on page load
+        document.getElementById("env-info").innerHTML = `Environment: ${environment} | Version: ${version}`;
 
-		<select onchange="addTwoIntegers()" id="y-value">
-			<option>1</option>
-			<option>2</option>
-			<option>3</option>
-			<option>100</option>
-		</select> = 
-		<input id="sum" disabled></input><br /><br /><br />
+        // Show Main Node.js tag if secret is correct
+        if (secret === "showMainNodeTag") {
+            document.getElementById("main-node-tag").style.display = "block";
+        }
 
-		<button type="button" onclick="calculateBMI()">Calculate BMI</button>
-		<div id="bmi-result"></div>
-		<br><br>
+        // Player names
+        var player1 = "Player 1";
+        var player2 = "Player 2";
 
-		<script>
-			let fetchAboutCounter = 0
-			async function fetchAbout() {
-				fetchAboutCounter++
-				const url = document.getElementById("urlInput").value + "/about";
-				const response = await fetch(url)
-				const responseText = await response.text()
-				document.getElementById("fetch-about-result").innerHTML = responseText + " ("+fetchAboutCounter+")"
-			}
+        // Function to change the player names
+        function editNames() {
+            player1 = prompt("Change Player1 name");
+            player2 = prompt("Change Player2 name");
 
-			let fetch2plus2Counter = 0
-			async function fetch2Plus2() {
-				fetch2plus2Counter++
-				const url = document.getElementById("urlInput").value + "/2plus2";
-				const response = await fetch(url)
-				const responseText = await response.text()
-				document.getElementById("fetch-2plus2-result").innerHTML = responseText + " ("+fetch2plus2Counter+")"
-			}
+            document.querySelector("p.Player1").innerHTML = player1;
+            document.querySelector("p.Player2").innerHTML = player2;
+        }
 
-			async function addTwoIntegers() {
-				const x = document.getElementById("x-value").value
-				const y = document.getElementById("y-value").value
+        // Function to roll the dice
+        function rollTheDice() {
+            setTimeout(function () {
+                var randomNumber1 = Math.floor(Math.random() * 6) + 1;
+                var randomNumber2 = Math.floor(Math.random() * 6) + 1;
 
-				// Note the URL (fetch) string will look something like '/add-two-integers?x=2&y=1' when it is sent.
-				const url = document.getElementById("urlInput").value
-				const fetchString = url+"/add-two-integers?x="+x+"&y="+y
-				const response = await fetch(fetchString)
-				const responseText = await response.text()
-				document.getElementById("sum").value = responseText
-			}
+                document.querySelector(".img1").setAttribute("src", "dice" + randomNumber1 + ".png");
+                document.querySelector(".img2").setAttribute("src", "dice" + randomNumber2 + ".png");
 
-			async function calculateBMI() {
-				// Approximate height and weight for a man in the US. 
-				const url = document.getElementById("urlInput").value;
-				const fetchString = url+'/calculate-bmi?feet=5&inches=10&lbs=186';
-				const response = await fetch(fetchString)
-				const responseText = await response.text()
-				console.log(responseText)
-				document.getElementById("bmi-result").innerHTML = responseText
-			}
-		</script>
-
-		<button onclick="fetchBatman()">Batman</button>
-		<div id="batmanJSON">Batman JSON</div><br /><br />
-		<script>
-			async function fetchBatman() {
-				const url = document.getElementById("urlInput").value + "/batman";
-				const response = await fetch(url);
-				const batmanResponse = await response.json();
-
-				const batmanJSONField = document.getElementById("batmanJSON");
-				const batmanResponseText = "<pre>"+JSON.stringify(batmanResponse, null, 4)+"</pre"
-				batmanJSONField.innerHTML = batmanResponseText
-			}
-		</script>
-
-		<button onclick="testFavoritePlaces()">Favorite Places</button>
-		<div id="favoritePlacesJSON">Favorite Places JSON</div><br /><br />
-		<script>
-			async function testFavoritePlaces() {
-				const url = document.getElementById("urlInput").value + "/api/favorite-places";
-				const response = await fetch(url);
-				const places = await response.json();
-
-				const favoritePlacesJSONField = document.getElementById("favoritePlacesJSON");
-				const favoritePlacesText = "<pre>"+JSON.stringify(places, null, 4)+"</pre"
-				favoritePlacesJSONField.innerHTML = favoritePlacesText
-			}
-		</script>
-	</div>
+                if (randomNumber1 === randomNumber2) {
+                    document.querySelector("h1").innerHTML = "Draw!";
+                } else if (randomNumber1 < randomNumber2) {
+                    document.querySelector("h1").innerHTML = (player2 + " WINS!");
+                } else {
+                    document.querySelector("h1").innerHTML = (player1 + " WINS!");
+                }
+            }, 2500);
+        }
+    </script>
 </body>
+
 </html>
