@@ -92,7 +92,7 @@
 
 <body>
     <!-- Main Azure Static Tag (Initially hidden) -->
-    <div id="main-node-tag" class="main-node-tag">Main Azure Static</div>
+    <div id="main-node-tag" class="main-node-tag">Production Azure Static</div>
 
     <div class="container">
         <h1>Let's Play</h1>
@@ -128,7 +128,7 @@
 
     <script>
         // Secret Configuration for Production
-        var secret = "showMainAzureStaticTag";  // Simulated secret, could be retrieved from a secure location
+        var secret = "showProductionAzureStaticTag";  // Simulated secret, could be retrieved from a secure location
 
         // Environment and Version Variables
         var environment = "Production Azure Static";
@@ -138,7 +138,7 @@
         document.getElementById("env-info").innerHTML = `Environment: ${environment} | Version: ${version}`;
 
         // Show Main Azure Static tag if secret is correct
-        if (secret === "showMainAzureStaticTag") {
+        if (secret === "showProductionAzureStaticTag") {
             document.getElementById("main-node-tag").style.display = "block";
         }
 
