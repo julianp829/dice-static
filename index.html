@@ -74,7 +74,7 @@
             display: inline-block;
         }
 
-        /* Main Node.js tag in the upper right corner */
+        /* Main Azure Static tag in the upper right corner */
         .main-node-tag {
             position: absolute;
             top: 10px;
@@ -91,8 +91,8 @@
 </head>
 
 <body>
-    <!-- Main Node.js Tag (Initially hidden) -->
-    <div id="main-node-tag" class="main-node-tag">Main Node.js</div>
+    <!-- Main Azure Static Tag (Initially hidden) -->
+    <div id="main-node-tag" class="main-node-tag">Main Azure Static</div>
 
     <div class="container">
         <h1>Let's Play</h1>
@@ -128,17 +128,17 @@
 
     <script>
         // Secret Configuration
-        var secret = "showMainNodeTag";  // Simulated secret, could be retrieved from a secure location
+        var secret = "showMainAzureStaticTag";  // Simulated secret, could be retrieved from a secure location
 
         // Environment and Version Variables
-        var environment = "Static Main";
-        var version = "2";
+        var environment = "Azure Static Main";
+        var version = "2.04";
 
         // Set the environment and version on page load
         document.getElementById("env-info").innerHTML = `Environment: ${environment} | Version: ${version}`;
 
-        // Show Main Node.js tag if secret is correct
-        if (secret === "showMainNodeTag") {
+        // Show Main Azure Static tag if secret is correct
+        if (secret === "showMainAzureStaticTag") {
             document.getElementById("main-node-tag").style.display = "block";
         }
 
